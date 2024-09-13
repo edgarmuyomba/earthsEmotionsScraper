@@ -115,7 +115,7 @@ class EarthsemotionsDownloaderMiddleware:
 class SeleniumMiddleware:
     def __init__(self):
         chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         service = Service(
             r"D:\ChromeDriver\chromedriver-win64\chromedriver.exe")
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -132,6 +132,22 @@ class ObserverSeleniumMiddleware(SeleniumMiddleware):
         WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, "div#gkPageContent"))
+        )
+
+        body = self.driver.page_source
+        return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)
+
+
+class DailyMonitorSeleniumMiddleware(SeleniumMiddleware):
+
+    def process_request(self, request, spider):
+
+        self.driver.get(request.url)
+
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "section.page-content")
+            )
         )
 
         body = self.driver.page_source
