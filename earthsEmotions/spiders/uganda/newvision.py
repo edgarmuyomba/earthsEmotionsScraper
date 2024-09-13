@@ -4,7 +4,7 @@ from scrapy.linkextractors import LinkExtractor
 class NewVisionSpider(CrawlSpider):
     name = "newvision"
     allowed_domains = ["newvision.co.ug"]
-    start_urls = ["https://www.newvision.co.ug/"]
+    start_urls = ["https://www.newvision.co.ug/category/news"]
     rules = [
         Rule(LinkExtractor(deny=r".*undefined.*")),
         Rule(LinkExtractor(allow=r"/category/[0-9a-zA-Z\-_]/"), callback="parse_items", follow=True),
