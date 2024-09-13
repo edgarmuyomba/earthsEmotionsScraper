@@ -26,6 +26,9 @@ class ObserverSpider(CrawlSpider):
             'Outputs/observer.json': {
                 'format': 'json'
             }
+        },
+        'ITEM_PIPELINES': {
+            'earthsEmotions.pipelines.TheObserverPipeline': 300
         }
     }
 

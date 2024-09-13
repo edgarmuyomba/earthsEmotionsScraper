@@ -9,7 +9,7 @@ from itemadapter import ItemAdapter
 
 from string import whitespace
 
-class EarthsemotionsPipeline:
+class TheObserverPipeline:
     def process_item(self, article, spider):
         article['title'] = article['title'].strip()
         article['author'] = article['author'].strip()
