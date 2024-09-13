@@ -1,6 +1,8 @@
 from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
+from earthsEmotions.items import Article
+
 
 class ObserverSpider(CrawlSpider):
     name = "observer"
@@ -17,25 +19,30 @@ class ObserverSpider(CrawlSpider):
         'AppleWebKit 537.36 (KHTML, like Gecko) Chrome',
         'DOWNLOAD_DELAY': 2,
         'DOWNLOAD_TIMEOUT': 10,
-        'CONCURRENT_REQUESTS': 10,
+        'CLOSESPIDER_ITEMCOUNT': 10,
         'LOG_LEVEL': 'INFO',
         'LOG_FILE': 'observer.log',
-        'FEED_URI': 'Outputs/observer.json',
-        'FEED_FORMAT': 'json'
+        'FEEDS': {
+            'Outputs/observer.json': {
+                'format': 'json'
+            }
+        }
     }
 
     def parse_items(self, response):
         self.logger.debug(f"Parsing page:: {response.url}")
+        article = Article()
         title = response.css("h1[itemprop='name']::text").get()
         author = response.css("span[itemprop='name']::text").get()
-        date = response.css("time[itemprop='datePublished']::text").get()
-        body = response.css("span[itemprop='articleBody']").get()
+        datetime = response.css("time[itemprop='datePublished']").get()
+        body = response.css("span[itemprop='articleBody'] > p::text").getall()
 
-        if title and date:
-            return {
-                "title": title,
-                "author": author,
-                "date": date
-            }
+        if title and datetime:
+            article['title'] = title
+            article['author'] = author
+            article['datetime'] = datetime
+            article['body'] = body
+
+            yield article
         else:
             self.logger.debug(f"No article found on the page:: {response.url}")

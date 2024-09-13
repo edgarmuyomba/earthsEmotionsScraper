@@ -6,7 +6,8 @@
 import scrapy
 
 
-class EarthsemotionsItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class Article(scrapy.Item):
+    title = scrapy.Field()
+    author = scrapy.Field()
+    datetime = scrapy.Field()
+    body = scrapy.Field()

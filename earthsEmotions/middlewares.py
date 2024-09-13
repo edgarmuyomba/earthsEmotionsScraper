@@ -8,6 +8,17 @@ from scrapy import signals
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from scrapy.http import HtmlResponse
+
+import re
+
 
 class EarthsemotionsSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -101,3 +112,26 @@ class EarthsemotionsDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+
+class SeleniumMiddleware:
+    def __init__(self):
+        chrome_options = Options()
+        # chrome_options.add_argument("--headless")
+        service = Service(
+            r"D:\ChromeDriver\chromedriver-win64\chromedriver.exe")
+        self.driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    def process_request(self, request, spider):
+        self.driver.get(request.url)
+
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "div#gkPageContent"))
+        )
+
+        body = self.driver.page_source
+        return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)
+
+    # def __del__(self):
+    #     self.driver.quit()
