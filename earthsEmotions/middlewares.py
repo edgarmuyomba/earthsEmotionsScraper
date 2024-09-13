@@ -17,8 +17,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from scrapy.http import HtmlResponse
 
-import re
-
 
 class EarthsemotionsSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -117,10 +115,16 @@ class EarthsemotionsDownloaderMiddleware:
 class SeleniumMiddleware:
     def __init__(self):
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         service = Service(
             r"D:\ChromeDriver\chromedriver-win64\chromedriver.exe")
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    def __del__(self):
+        self.driver.quit()
+
+
+class ObserverSeleniumMiddleware(SeleniumMiddleware):
 
     def process_request(self, request, spider):
         self.driver.get(request.url)
@@ -132,6 +136,3 @@ class SeleniumMiddleware:
 
         body = self.driver.page_source
         return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)
-
-    # def __del__(self):
-    #     self.driver.quit()

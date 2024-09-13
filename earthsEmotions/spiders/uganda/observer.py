@@ -29,6 +29,9 @@ class ObserverSpider(CrawlSpider):
         },
         'ITEM_PIPELINES': {
             'earthsEmotions.pipelines.TheObserverPipeline': 300
+        },
+        'SPIDER_MIDDLEWARES': {
+            'earthsEmotions.middlewares.ObserverSeleniumMiddleware': 543
         }
     }
 
@@ -41,6 +44,7 @@ class ObserverSpider(CrawlSpider):
         body = response.css("span[itemprop='articleBody'] > p::text").getall()
 
         if title and datetime:
+            article['url'] = response.url
             article['title'] = title
             article['author'] = author
             article['datetime'] = datetime
