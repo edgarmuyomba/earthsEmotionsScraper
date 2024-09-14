@@ -27,7 +27,8 @@ class CampusBeeSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.CampusBeePipeline': 300
+            'earthsEmotions.pipelines.ugandaPipelines.CampusBeePipeline': 300,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         },
         # 'SPIDER_MIDDLEWARES': {
         #     'earthsEmotions.middlewares.ObserverSeleniumMiddleware': 543

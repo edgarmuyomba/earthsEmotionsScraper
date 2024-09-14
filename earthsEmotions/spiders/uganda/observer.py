@@ -28,7 +28,8 @@ class ObserverSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.TheObserverPipeline': 300
+            'earthsEmotions.pipelines.ugandaPipelines.TheObserverPipeline': 300,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         },
         'SPIDER_MIDDLEWARES': {
             'earthsEmotions.middlewares.ObserverSeleniumMiddleware': 543

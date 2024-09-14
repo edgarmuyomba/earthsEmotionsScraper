@@ -30,7 +30,8 @@ class DailyMonitorSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.DailyMonitorPipeline': 300
+            'earthsEmotions.pipelines.ugandaPipelines.DailyMonitorPipeline': 300,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         },
         # 'DOWNLOADER_MIDDLEWARES': {
         #     'earthsEmotions.middlewares.DailyMonitorSeleniumMiddleware': 543

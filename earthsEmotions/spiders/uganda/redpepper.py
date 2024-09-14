@@ -31,7 +31,8 @@ class RedPepperSpider(CrawlSpider):
             "earthsEmotions.middlewares.RedPepperSeleniumMiddleware": 543
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.RedPepperPipeline': 300
+            'earthsEmotions.pipelines.ugandaPipelines.RedPepperPipeline': 300,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         }
     }
 
