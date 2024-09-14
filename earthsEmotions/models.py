@@ -6,7 +6,7 @@ Base = declarative_base()
 class ArticleModel(Base):
     __tablename__='uganda'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     url = Column(String(255))
     datetime = Column(String) 
     title = Column(String) 

@@ -19,7 +19,7 @@ class ObserverSpider(CrawlSpider):
         'AppleWebKit 537.36 (KHTML, like Gecko) Chrome',
         'DOWNLOAD_DELAY': 2,
         'DOWNLOAD_TIMEOUT': 10,
-        'CLOSESPIDER_ITEMCOUNT': 10,
+        'CLOSESPIDER_ITEMCOUNT': 50,
         'LOG_LEVEL': 'INFO',
         'LOG_FILE': 'observer.log',
         'FEEDS': {
@@ -28,6 +28,7 @@ class ObserverSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
+            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.TheObserverPipeline': 300,
             'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         },

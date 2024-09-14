@@ -3,6 +3,7 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 from earthsEmotions.items import Article
 
+
 class CampusBeeSpider(CrawlSpider):
     name = 'campusbee'
     allowed_domains = ['campusbee.ug']
@@ -27,6 +28,7 @@ class CampusBeeSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
+            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.CampusBeePipeline': 300,
             'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         },

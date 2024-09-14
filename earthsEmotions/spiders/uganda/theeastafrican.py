@@ -18,7 +18,7 @@ class TheEastAfricanSpider(CrawlSpider):
         'AppleWebKit 537.36 (KHTML, like Gecko) Chrome',
         'DOWNLOAD_DELAY': 2,
         'DOWNLOAD_TIMEOUT': 5,
-        'CLOSESPIDER_ITEMCOUNT': 20,
+        'CLOSESPIDER_ITEMCOUNT': 50,
         'LOG_LEVEL': 'INFO',
         'LOG_FILE': 'theeastafrican.log',
         'FEEDS': {
@@ -27,6 +27,7 @@ class TheEastAfricanSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
+            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.TheEastAfricanPipeline': 300,
             'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         }

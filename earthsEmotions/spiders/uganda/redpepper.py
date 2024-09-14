@@ -18,7 +18,7 @@ class RedPepperSpider(CrawlSpider):
         'AppleWebKit 537.36 (KHTML, like Gecko) Chrome',
         'DOWNLOAD_DELAY': 2,
         'DOWNLOAD_TIMEOUT': 10,
-        'CLOSESPIDER_ITEMCOUNT': 20,
+        'CLOSESPIDER_ITEMCOUNT': 50,
         'LOG_LEVEL': 'INFO',
         'LOG_FILE': 'redpper.log',
         'DEPTH_PRIORITY': 1,
@@ -31,6 +31,7 @@ class RedPepperSpider(CrawlSpider):
             "earthsEmotions.middlewares.RedPepperSeleniumMiddleware": 543
         },
         'ITEM_PIPELINES': {
+            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.RedPepperPipeline': 300,
             'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
         }

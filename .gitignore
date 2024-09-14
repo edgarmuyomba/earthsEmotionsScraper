@@ -4,3 +4,4 @@ Outputs/
 *.log
 TODO
 main.py
+.env
