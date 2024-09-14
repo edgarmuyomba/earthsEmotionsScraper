@@ -14,9 +14,11 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from scrapy.http import HtmlResponse
 
+import logging
 
 class EarthsemotionsSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -119,6 +121,7 @@ class SeleniumMiddleware:
         service = Service(
             r"D:\ChromeDriver\chromedriver-win64\chromedriver.exe")
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
+        self.logger = logging.getLogger(__name__)
 
     def __del__(self):
         self.driver.quit()
@@ -152,3 +155,39 @@ class DailyMonitorSeleniumMiddleware(SeleniumMiddleware):
 
         body = self.driver.page_source
         return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)
+    
+class RedPepperSeleniumMiddleware(SeleniumMiddleware):
+
+    def process_request(self, request, spider):
+
+        self.driver.get(request.url)
+
+        try: 
+            element = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "div.st-cmp-content")
+                )
+            )
+
+            buttons = self.driver.find_elements(By.CSS_SELECTOR, "div.st-button")
+
+            self.logger.info(f"Cookies handler buttons:: {buttons}")
+
+            if len(buttons) > 3:
+                buttons[3].click()
+
+        except TimeoutException:
+            # no cookies
+            self.logger.critical("No Cookies!!")
+            pass
+        
+        finally:
+
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "div#page")
+                )
+            )
+
+            body = self.driver.page_source
+            return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)

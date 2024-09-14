@@ -20,7 +20,7 @@ class DailyMonitorSpider(CrawlSpider):
         'AppleWebKit 537.36 (KHTML, like Gecko) Chrome',
         'DOWNLOAD_DELAY': 2,
         'DOWNLOAD_TIMEOUT': 5,
-        'CLOSESPIDER_ITEMCOUNT': 5,
+        'CLOSESPIDER_ITEMCOUNT': 20,
         'LOG_LEVEL': 'INFO',
         'LOG_FILE': 'dailymonitor.log',
         'DEPTH_PRIORITY': 1,
