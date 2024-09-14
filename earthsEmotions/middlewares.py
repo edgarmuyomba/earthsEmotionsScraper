@@ -20,6 +20,7 @@ from scrapy.http import HtmlResponse
 
 import logging
 
+
 class EarthsemotionsSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -117,7 +118,7 @@ class EarthsemotionsDownloaderMiddleware:
 class SeleniumMiddleware:
     def __init__(self):
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         service = Service(
             r"D:\ChromeDriver\chromedriver-win64\chromedriver.exe")
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -155,39 +156,39 @@ class DailyMonitorSeleniumMiddleware(SeleniumMiddleware):
 
         body = self.driver.page_source
         return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)
-    
+
+
 class RedPepperSeleniumMiddleware(SeleniumMiddleware):
 
     def process_request(self, request, spider):
 
         self.driver.get(request.url)
 
-        try: 
-            element = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, "div.st-cmp-content")
+        if request.url == spider.start_urls[0]:
+
+            try:
+                WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, "div.st-cmp-content")
+                    )
                 )
+
+                buttons = self.driver.find_elements(
+                    By.CSS_SELECTOR, "div.st-cmp-permanent-footer-nav-buttons div.st-button")
+
+                if len(buttons) == 3:
+                    buttons[1].click()
+
+            except TimeoutException:
+                # no cookies
+                pass
+
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "div#content")
             )
+        )
 
-            buttons = self.driver.find_elements(By.CSS_SELECTOR, "div.st-button")
+        body = self.driver.page_source
 
-            self.logger.info(f"Cookies handler buttons:: {buttons}")
-
-            if len(buttons) > 3:
-                buttons[3].click()
-
-        except TimeoutException:
-            # no cookies
-            self.logger.critical("No Cookies!!")
-            pass
-        
-        finally:
-
-            WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, "div#page")
-                )
-            )
-
-            body = self.driver.page_source
-            return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)
+        return HtmlResponse(self.driver.current_url, body=body, encoding='utf-8', request=request)

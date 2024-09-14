@@ -45,3 +45,14 @@ class DailyMonitorPipeline:
         article['body'] = body
 
         return article
+
+class RedPepperPipeline:
+    def process_item(self, article, spider):
+        article['title'] = article['title'].strip()
+        article['author'] = article['author'].strip()
+        article['datetime'] = article['datetime'].strip()
+        body = " ".join(
+            text for text in article['body'] if text not in whitespace)
+        article['body'] = body
+
+        return article
