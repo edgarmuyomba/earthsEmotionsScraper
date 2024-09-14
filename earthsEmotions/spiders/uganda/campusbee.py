@@ -3,7 +3,6 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 from earthsEmotions.items import Article
 
-
 class CampusBeeSpider(CrawlSpider):
     name = 'campusbee'
     allowed_domains = ['campusbee.ug']
