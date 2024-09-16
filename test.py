@@ -18,6 +18,6 @@ class DateStandardizationPipeline:
         return item
 
 
-parsed_date = dateparser.parse("August 30, 2024")
+parsed_date = dateparser.parse("Sunday September 15 2024")
 
-print(parsed_date.strftime('%Y-%m-%d'))
+print(parsed_date.strftime('%Y-%m-%d %H:%M:%S'))

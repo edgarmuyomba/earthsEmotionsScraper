@@ -1,22 +1,5 @@
 from string import whitespace
 
-
-class ValidArticlePipeline:
-    def process_item(self, article, spider):
-        if not article['url']:
-            article['url'] = "No url"
-        if not article['title']:
-            article['title'] = "No title"
-        if not article['author']:
-            article['author'] = "No author"
-        if not article['datetime']:
-            article['datetime'] = "No datetime"
-        if not article['body']:
-            article['body'] = ["No body"]
-
-        return article
-
-
 class TheObserverPipeline:
     def process_item(self, article, spider):
         article['title'] = article['title'].strip()

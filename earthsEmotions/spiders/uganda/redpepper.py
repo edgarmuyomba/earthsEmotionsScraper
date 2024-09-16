@@ -31,10 +31,11 @@ class RedPepperSpider(CrawlSpider):
             "earthsEmotions.middlewares.RedPepperSeleniumMiddleware": 543
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
+            'earthsEmotions.pipelines.dataFormattingPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.RedPepperPipeline': 300,
-            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 400,
-            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 500
+            'earthsEmotions.pipelines.dataFormattingPipelines.StandardDatePipeline': 400,
+            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 500,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 600
         }
     }
 

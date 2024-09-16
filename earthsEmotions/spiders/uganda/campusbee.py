@@ -28,10 +28,11 @@ class CampusBeeSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
+            'earthsEmotions.pipelines.dataFormattingPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.CampusBeePipeline': 300,
-            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 400,
-            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 500
+            'earthsEmotions.pipelines.dataFormattingPipelines.StandardDatePipeline': 400,
+            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 500,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 600
         },
         # 'SPIDER_MIDDLEWARES': {
         #     'earthsEmotions.middlewares.ObserverSeleniumMiddleware': 543

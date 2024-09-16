@@ -10,7 +10,8 @@ class TheEastAfricanSpider(CrawlSpider):
     start_urls = ["https://www.theeastafrican.co.ke/"]
     rules = [
         Rule(LinkExtractor(allow=r"/tea/.*", restrict_css="ul.nav a"), follow=True),
-        Rule(LinkExtractor(allow=r"/tea/[\w\-]+/[\w\-]+\-\d+$", deny=r"/tea/author-profiles/.*"), follow=True, callback="parse_items"),
+        Rule(LinkExtractor(allow=r"/tea/[\w\-]+/[\w\-]+\-\d+$",
+             deny=r"/tea/author-profiles/.*"), follow=True, callback="parse_items"),
     ]
 
     custom_settings = {
@@ -27,10 +28,11 @@ class TheEastAfricanSpider(CrawlSpider):
             }
         },
         'ITEM_PIPELINES': {
-            'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
+            'earthsEmotions.pipelines.dataFormattingPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.TheEastAfricanPipeline': 300,
-            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 400,
-            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 500
+            'earthsEmotions.pipelines.dataFormattingPipelines.StandardDatePipeline': 400,
+            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 500,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 600
         }
     }
 
