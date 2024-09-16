@@ -18,7 +18,7 @@ class RedPepperSpider(CrawlSpider):
         'AppleWebKit 537.36 (KHTML, like Gecko) Chrome',
         'DOWNLOAD_DELAY': 2,
         'DOWNLOAD_TIMEOUT': 10,
-        'CLOSESPIDER_ITEMCOUNT': 50,
+        'CLOSESPIDER_ITEMCOUNT': 20,
         'LOG_LEVEL': 'INFO',
         'LOG_FILE': 'redpper.log',
         'DEPTH_PRIORITY': 1,
