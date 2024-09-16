@@ -43,7 +43,7 @@ class ObserverSpider(CrawlSpider):
         article = Article()
         title = response.css("h1[itemprop='name']::text").get()
         author = response.css("span[itemprop='name']::text").get()
-        datetime = response.css("time[itemprop='datePublished']").get()
+        datetime = response.css("time[itemprop='datePublished']").attrib.get('datetime')
         body = response.css("span[itemprop='articleBody'] > p::text").getall()
 
         if title and datetime:
