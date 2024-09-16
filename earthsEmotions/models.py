@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text
+from sqlalchemy import create_engine, Column, Integer, String, Text, DOUBLE_PRECISION
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -12,4 +12,5 @@ class ArticleModel(Base):
     title = Column(String) 
     author = Column(String) 
     body = Column(Text) 
+    polarity = Column(DOUBLE_PRECISION)
     

@@ -29,7 +29,8 @@ class TheEastAfricanSpider(CrawlSpider):
         'ITEM_PIPELINES': {
             'earthsEmotions.pipelines.ugandaPipelines.ValidArticlePipeline': 200,
             'earthsEmotions.pipelines.ugandaPipelines.TheEastAfricanPipeline': 300,
-            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 400
+            'earthsEmotions.pipelines.aiPipelines.PolarityPipeline': 400,
+            'earthsEmotions.pipelines.dbPipelines.PostgresPipeline': 500
         }
     }
 

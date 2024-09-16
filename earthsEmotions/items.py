@@ -12,3 +12,4 @@ class Article(scrapy.Item):
     author = scrapy.Field()
     datetime = scrapy.Field()
     body = scrapy.Field()
+    polarity = scrapy.Field()
