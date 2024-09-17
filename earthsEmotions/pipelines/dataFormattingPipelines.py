@@ -16,12 +16,13 @@ class ValidArticlePipeline:
 
         return article
 
+
 class StandardDatePipeline:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
     def process_item(self, article, spider):
-        
+
         datetime = article['datetime']
 
         if datetime != "No datetime":
@@ -29,13 +30,14 @@ class StandardDatePipeline:
             try:
 
                 parsed_date = dateparser.parse(datetime)
-            
+
             except:
 
-                self.logger.critical(f"Failed to standardize datetime value - {datetime}")
+                self.logger.critical(
+                    f"Failed to standardize datetime value - {datetime}")
 
             else:
-                
+
                 article['datetime'] = parsed_date.strftime('%Y-%m-%d %H:%M:%S')
 
         return article
